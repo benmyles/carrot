@@ -6,7 +6,7 @@ class Carrot
     PORT          = 5672
   end
 end
-  
+
 $:.unshift File.expand_path(File.dirname(File.expand_path(__FILE__)))
 require 'carrot/amqp/spec'
 require 'carrot/amqp/buffer'
@@ -30,7 +30,7 @@ class Carrot
   def initialize(opts = {})
     @opts = opts
   end
-  
+
   def queue(name, opts = {})
     queues[name] ||= AMQP::Queue.new(self, name, opts)
   end
@@ -42,6 +42,8 @@ class Carrot
   def stop
     server.close
     @server = nil
+    @queues = nil
+    @exchanges = nil
   end
   alias :reset :stop
 
