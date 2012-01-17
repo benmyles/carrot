@@ -40,10 +40,14 @@ class Carrot
   end
 
   def stop
-    server.close
-    @server = nil
-    @queues = nil
-    @exchanges = nil
+    begin
+      server.close
+    rescue Exception => e
+    ensure
+      @server = nil
+      @queues = nil
+      @exchanges = nil
+    end
   end
   alias :reset :stop
 
